@@ -18,18 +18,16 @@
 </template>
 
 <script>
-    import Home from './views/Home.vue'
-
     export default {
-        components: {
-            Home
+        components: {},
+        mounted() {
+            this.$store.dispatch('fetchProjects');
         }
     }
 </script>
 <style lang="scss">
     #app {
         padding: 0 10%;
-
     }
 
     .navigation {
