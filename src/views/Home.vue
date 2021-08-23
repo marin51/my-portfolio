@@ -41,6 +41,12 @@
         },
     })
     export default class Home extends Vue {
+        /**
+         * component data.
+         * @name is the name of the new project
+         * @description is the description of the new project
+         * @searchCriteria is the text on which the results are filtered
+         */
         private name: string = '';
         private description: string = '';
         private searchCriteria: string = '';
@@ -69,7 +75,7 @@
             return this.description.length >= 10;
         }
 
-        /** This method add new project to store at the beginning of the list. */
+        /** This method add new project to store at the beginning of the list and clear name and description. */
         private  addProject() {
             this.$store.dispatch('addProject', {
                 name: this.name,
@@ -103,7 +109,9 @@
             margin-left: 0.5rem;
         }
     }
-    @media screen and (max-width: 800px) {
+
+    //make inputs 100% for smaller screens
+    @media screen and (max-width: 1100px) {
         .options-bar{
             .input {
                 max-width: 100%;

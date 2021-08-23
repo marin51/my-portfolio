@@ -22,6 +22,7 @@
     export default {
         components: {},
         computed:{
+            /** store getters for app title and sub title */
             getTitle(){
                 return this.$store.getters.getAppTitle
             },
@@ -29,7 +30,8 @@
                 return this.$store.getters.getAppSubTitle
             }
         },
-        mounted() {
+        created() {
+            /** before app loaded fetch data from files */
             this.$store.dispatch('fetchProjects');
             this.$store.dispatch('fetchAbout');
         }

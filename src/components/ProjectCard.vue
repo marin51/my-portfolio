@@ -20,7 +20,7 @@
         @Prop({default: 0}) private index!: number;
         @Prop({default: ''}) private name!: string;
         @Prop({default: ''}) private description!: string;
-        /** This method emits the index of item for deletion to the parent view which handle the delete operation. */
+        /** This method emits the index of item for deletion to the parent component which handle the delete operation. */
         public deleteClicked(){
             this.$emit('delete',this.index)
         }

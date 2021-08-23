@@ -10,8 +10,9 @@
     import {Component, Vue} from 'vue-property-decorator';
     @Component
     export default class About extends Vue {
-        getDescription(){
-            return this.$store.getters.getDescription ? this.$store.getters.getDescription : '';
+        /** Get description from store and display it. */
+        private getDescription(){
+            return this.$store.getters.getDescription;
         }
     }
 </script>
