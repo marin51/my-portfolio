@@ -76,7 +76,7 @@
         }
 
         /** This method add new project to store at the beginning of the list and clear name and description. */
-        private  addProject() {
+        private addProject() {
             this.$store.dispatch('addProject', {
                 name: this.name,
                 description: this.description
