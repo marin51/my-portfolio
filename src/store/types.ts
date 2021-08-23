@@ -1,8 +1,14 @@
 export interface RootState {
-    projects: Project[]
+    projects: IProject[],
+    about: IAbout
 }
 
-export interface Project {
+export interface IProject {
     name: string,
+    description: string
+}
+export interface IAbout {
+    title: string,
+    subTitle: string,
     description: string
 }

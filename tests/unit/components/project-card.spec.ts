@@ -1,7 +1,12 @@
-import {shallowMount, Wrapper} from '@vue/test-utils';
+import {createLocalVue, shallowMount, Wrapper} from '@vue/test-utils';
+import { BootstrapVue } from 'bootstrap-vue'
 import ProjectCard from '@/components/ProjectCard.vue';
+const localVue = createLocalVue();
+// Make BootstrapVue available throughout your project
+localVue.use(BootstrapVue);
 
 const wrapper: Wrapper<ProjectCard> = shallowMount(ProjectCard, {
+    localVue,
     propsData: {
         project: {
             index: 3,
@@ -11,11 +16,13 @@ const wrapper: Wrapper<ProjectCard> = shallowMount(ProjectCard, {
     }
 });
 
-it('check if name and description are passed', () => {
+it('check if name is passed', () => {
     expect(wrapper.text()).toContain(wrapper.props().name);
-    expect(wrapper.text()).toContain(wrapper.props().description);
 });
 
+it('check if description is passed', () => {
+    expect(wrapper.text()).toContain(wrapper.props().description);
+});
 it('emit event with payload to the parent element', () => {
     const deleteButton = wrapper.find('.delete-button');
     deleteButton.trigger('click');

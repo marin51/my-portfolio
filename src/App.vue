@@ -2,9 +2,10 @@
     <div id="app">
         <div class="navigation">
             <div class="wrapper">
-                <b-card title="My portfolio" bg-variant="secondary" class="rounded-0" text-variant="white">
-                    <b-card-text>
-                        Welcome to my site.
+                <b-card bg-variant="secondary" class="rounded-0" text-variant="white">
+                    <h4 class="app-title"> {{ getTitle }} </h4>
+                    <b-card-text class="app-sub-title">
+                        {{ getSubTitle }}
                     </b-card-text>
                 </b-card>
                 <b-nav>
@@ -20,8 +21,17 @@
 <script>
     export default {
         components: {},
+        computed:{
+            getTitle(){
+                return this.$store.getters.getAppTitle
+            },
+            getSubTitle(){
+                return this.$store.getters.getAppSubTitle
+            }
+        },
         mounted() {
             this.$store.dispatch('fetchProjects');
+            this.$store.dispatch('fetchAbout');
         }
     }
 </script>

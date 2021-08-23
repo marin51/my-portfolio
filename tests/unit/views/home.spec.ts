@@ -1,15 +1,15 @@
 import {createLocalVue, shallowMount, Wrapper} from "@vue/test-utils";
 import Home from '@/views/Home.vue'
 import Vuex from 'vuex';
-import {Project} from "@/store/types.ts";
-import { BootstrapVue } from 'bootstrap-vue'
-// Import Bootstrap an BootstrapVue CSS files (order is important)
+import {IProject} from "@/store/types.ts";
+import {BootstrapVue} from 'bootstrap-vue'
+
 const localVue = createLocalVue();
 localVue.use(Vuex);
 // Make BootstrapVue available throughout your project
 localVue.use(BootstrapVue);
 
-const projects: Project[] = [
+const projects: IProject[] = [
     {
         name: 'Audi group',
         description: 'Audi is a part of VAG AG.'
@@ -38,19 +38,23 @@ const store = new Vuex.Store({
 const wrapper: Wrapper<Home> = shallowMount(Home, {
     store,
     localVue,
-    propsData: {
-        name: '',
-        description: '',
-        searchCriteria: ''
+    data: () => {
+        return {
+            name: '',
+            description: '',
+            searchCriteria: ''
+        }
     }
 });
 
 test('add post button validation', () => {
     const addButton = wrapper.find('.submit-button');
-    expect(addButton.is('disabled'));
-    wrapper.props().name = 'projectttt';
-    wrapper.props().description = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-    expect(!addButton.is('disabled'));
+    expect(addButton.element.tagName === 'disabled');
+    wrapper.setData({
+        name: 'projectttt',
+        description: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+    });
+    expect(addButton.element.tagName !== 'disabled');
 });
 
 it('check delete works', () => {
@@ -61,8 +65,10 @@ it('check delete works', () => {
 });
 
 it('check add works', () => {
-    wrapper.props().name = 'Test Name 1';
-    wrapper.props().description = 'Test Description 1';
+    wrapper.setData({
+        name: 'Test Name 1',
+        description: 'Test Description 1'
+    });
     //@ts-ignore
     wrapper.vm.addProject();
     //@ts-ignore
@@ -71,13 +77,41 @@ it('check add works', () => {
     expect(wrapper.vm.getProjects[0].name === 'Test Description 1');
 });
 
-it('check add project button fire click event', () => {
+it('check add project button trigger click and store is updated', () => {
     const addButton = wrapper.find('.submit-button');
-    wrapper.props().name = 'Test Name 1';
-    wrapper.props().description = 'Test Description 1';
+    wrapper.setData({
+        name: '',
+        description: ''
+    });
     addButton.trigger('click');
+    //@ts-ignore
+    expect(wrapper.vm.getProjects[0].name === '');
+    //@ts-ignore
+    expect(wrapper.vm.getProjects[0].description === '');
 });
 
+it('check search works when find', () => {
+    wrapper.setData({
+        searchCriteria: 'Audi'
+    });
+    //@ts-ignore
+    expect(wrapper.vm.getProjects.length === 1);
+    //@ts-ignore
+    expect(wrapper.vm.getProjects[0].name.includes('Audi'))
+});
 
+it('check search works when clear criteria', () => {
+    wrapper.setData({
+        searchCriteria: ''
+    });
+    //@ts-ignore
+    expect(wrapper.vm.getProjects.length === 3);
+});
 
-
+it('check search works when not find', () => {
+    wrapper.setData({
+        searchCriteria: 'Skoda'
+    });
+    //@ts-ignore
+    expect(wrapper.vm.getProjects.length === 0);
+});

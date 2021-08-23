@@ -3,11 +3,13 @@
         <!--    search bar-->
         <div class="options-bar">
             <b-form-input class="input" v-model="name" :state="isNameValid()" placeholder="Enter the project name"/>
-            <b-form-input class="input" v-model="description" :state="isDescriptionValid()" placeholder="Enter the project description"/>
+            <b-form-input class="input" v-model="description" :state="isDescriptionValid()"
+                          placeholder="Enter the project description"/>
             <b-button class="submit-button"
                       variant="primary"
                       :disabled="!isNameValid() || !isDescriptionValid()"
-                      @click="addProject">Add project</b-button>
+                      @click="addProject">Add project
+            </b-button>
             <b-form-input class="input" v-model="searchCriteria" placeholder="Search here"/>
             <b-form-invalid-feedback v-show="name.length > 0 && name.length < 6">
                 The project name needs to be at least 5 letters
@@ -68,7 +70,7 @@
         }
 
         /** This method add new project to store at the beginning of the list. */
-        private addProject() {
+        private  addProject() {
             this.$store.dispatch('addProject', {
                 name: this.name,
                 description: this.description
@@ -80,6 +82,7 @@
     }
 </script>
 <style lang="scss">
+
     .project-list {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -100,5 +103,15 @@
             margin-left: 0.5rem;
         }
     }
+    @media screen and (max-width: 800px) {
+        .options-bar{
+            .input {
+                max-width: 100%;
+            }
+            .submit-button{
+                margin: 0.5rem 0;
+            }
+        }
 
+    }
 </style>

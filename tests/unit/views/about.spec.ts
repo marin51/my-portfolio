@@ -1,15 +1,36 @@
-// Import the `mount()` method from Vue Test Utils
-import { mount } from '@vue/test-utils'
-import About from "@/views/About.vue";
+import {createLocalVue, shallowMount, Wrapper, } from "@vue/test-utils";
+import About from '@/views/About.vue'
+import Vuex from 'vuex';
+import {IAbout} from "@/store/types.ts";
+import { BootstrapVue } from 'bootstrap-vue'
+// Import Bootstrap an BootstrapVue CSS files (order is important)
+const localVue = createLocalVue();
+localVue.use(Vuex);
+// Make BootstrapVue available throughout your project
+localVue.use(BootstrapVue);
 
-test('displays message', () => {
-    // mount() returns a wrapped Vue component we can interact with
-    const wrapper = mount(About, {
-        propsData: {
-            description: 'About author'
-        }
-    });
-
-    // Assert the rendered text of the component
-    expect(wrapper.text()).toContain('About author')
+const about: IAbout = {
+        title: 'Title',
+        subTitle: 'Sub Title',
+        description: 'Description here'
+    };
+const store = new Vuex.Store({
+    state: {
+        about
+    },
+    getters: {
+        getDescription: () => about.description
+    },
 });
+const wrapper: Wrapper<About> = shallowMount(About, {
+    store,
+    localVue
+});
+
+test('About description is passed correctly', () => {
+    const aboutDescription = wrapper.find('.about-description');
+    //@ts-ignore
+    expect((aboutDescription.text())).toEqual(wrapper.vm.getDescription());
+});
+
+
