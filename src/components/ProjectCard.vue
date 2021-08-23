@@ -1,10 +1,9 @@
 <template>
-
     <b-card :title="name" style="width: 100%;" class="mb-3">
         <b-card-text>
            {{ description }}
         </b-card-text>
-        <b-button variant="danger" @click="deleteClicked()">Delete Project</b-button>
+        <b-button class="delete-button" variant="danger" @click="deleteClicked()">Delete Project</b-button>
     </b-card>
 </template>
 

@@ -22,6 +22,7 @@
                           :description="project.description"
                           :key="index"
                           :index="index"
+                          class="project-card"
                           @delete="deleteProject"/>
         </div>
     </div>
