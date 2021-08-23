@@ -33,16 +33,16 @@ const store: StoreOptions<RootState> = {
         }
     },
     actions: {
-        fetchProjects: ({commit}): any => {
+        fetchProjects: ({commit}): void => {
             axios.get('../projects.json').then((result: any) => {
                 const payload: Project[] = result.data;
                 commit('setProjects', payload);
             })
         },
-        deleteProject: (context, payload: number): any => {
+        deleteProject: (context, payload: number): void => {
             context.commit('deleteProject', payload);
         },
-        addProject: (context, payload: Project): any => {
+        addProject: (context, payload: Project): void => {
             context.commit('addProject', payload);
         },
     }
