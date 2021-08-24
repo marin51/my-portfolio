@@ -5,7 +5,20 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "jest"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "testURL": "http://localhost/"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -30,7 +43,9 @@
     "babel-jest": "24.0.0",
     "node-sass": "5.0.0",
     "sass-loader": "10.0.5",
+    "ts-jest": "^27.0.5",
     "typescript": "~3.9.3",
+    "vue-jest": "^3.0.7",
     "vue-template-compiler": "2.6.12"
   }
 }
