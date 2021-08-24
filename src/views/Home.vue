@@ -33,6 +33,7 @@
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator';
+    import {IProject} from "@/store/types";
     import ProjectCard from "@/components/ProjectCard.vue";
 
     @Component({
@@ -56,7 +57,7 @@
             if (!this.searchCriteria.length) {
                 return this.$store.getters.getProjects
             } else {
-                return this.$store.getters.getProjects.filter(p => p.name.includes(this.searchCriteria) || p.description.includes(this.searchCriteria));
+                return this.$store.getters.getProjects.filter((p: IProject) => p.name.includes(this.searchCriteria) || p.description.includes(this.searchCriteria));
             }
         }
 
