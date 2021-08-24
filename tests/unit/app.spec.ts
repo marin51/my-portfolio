@@ -36,7 +36,6 @@ const wrapper: Wrapper<App> = shallowMount(App, {
 
 test('App title is passed correctly', () => {
     const appTitle = wrapper.find('.app-title');
-    console.log(appTitle.text());
     //@ts-ignore
     expect((appTitle.text())).toEqual('Title');
 });
